@@ -4,15 +4,18 @@
 @section('cuerpo')
     <h1>Vista de cientes</h1>
     
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <span class="input-group-text" id="nombre">Nombre</span>
+    <form action="{{ route('clientes.buscar') }}" method="post">
+        <div class="input-group mb-3">
+            @csrf
+            <div class="input-group-prepend">
+                <span class="input-group-text" >Nombre</span>
+            </div>
+            <input name="nombre" type="text" class="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="button-addon2">
+            <div class="input-group-append">
+            <button class="input-group-text" type="submit" id="buscar">Buscar</button>
+            </div>
         </div>
-        <input type="text" class="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="button-addon2">
-        <div class="input-group-append">
-          <button class="input-group-text" type="button" id="buscar">Buscar</button>
-        </div>
-      </div>
+    </form>
 
     <div class="input-group mb-3">
         <div class="input-group-prepend">

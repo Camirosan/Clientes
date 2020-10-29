@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Metodo GET
+
 Route::get('/', [PagesController::class, 'inicio']);
 
 // Route::get('test/{id_cliente?}', function($id_cliente = ''){
@@ -21,6 +23,13 @@ Route::get('/', [PagesController::class, 'inicio']);
 //     // return view('clientes')
 // })->where('id_cliente', '[0-9]+');
 
-Route::get('clientes/{id_ciente?}', [PagesController::class, 'clientes'])->name('clientes'); 
+// Route::get('clientes/{id_cliente?}', [PagesController::class, 'clientes'])->name('clientes'); 
+Route::get('clientes', [PagesController::class, 'clientes'])->name('clientes');
 
-Route::get('registo', [PagesController::class, 'registrar'])->name('registro'); 
+Route::get('registro', [PagesController::class, 'registro'])->name('registro'); 
+
+// Metodo POST
+
+Route::post('registro', [PagesController::class, 'registrar'])->name('clietnes.crear');
+
+Route::post('clientes', [PagesController::class, 'consulta'])->name('clientes.buscar');

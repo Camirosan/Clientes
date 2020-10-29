@@ -12,13 +12,61 @@ class PagesController extends Controller
     }
 
 
-    public function clientes($id_cliente=null){
-        $cliente = Cliente::all();
-        // echo($cliente);
-        return view('clientes', ['id_cliente' => $id_cliente]);
+    // public function clientes($id_cliente=null){
+    public function clientes(){
+        // $cliente = Cliente::all();
+        // echo($cliente[0]);
+        // $id_cliente = $cliente[0]->id_cliente;
+        // echo($id_cliente);
+        // return view('clientes', ['id_cliente' => $id_cliente]);
+        return view('clientes');
     }
 
-    public function registrar(){
+    public function consulta(Request $request){
+        // return $request->all();
+        $cliente = new Cliente;
+        $cliente->nombre = $request->nombre;
+        echo($cliente);
+        // $nombre
+        // $correo
+        // $telefono
+        // $celular
+        // $whatsapp
+        // $direccion
+        return back();
+    }
+
+    public function registro(){
         return view('registro');
+    }
+
+    public function registrar(Request $request){
+        // return $request->all();
+        $request->validate([
+            'nombre'=>'required',
+            'celular'=>'required',
+        ]);
+        $cliente = new Cliente;
+        $cliente->nombre = $request->nombre;
+        if($request->telefono == ""){
+            $cliente->telefono = 'no tiene';
+        }else{
+            $cliente->telefono = $request->telefono;
+        }
+        $cliente->celular = $request->celular;
+        if($request->whatsapp == "si"){
+            $cliente->whatsapp = 1;
+        }else{
+            $cliente->whatsapp = 0;
+        }        
+        if($request->correo == ""){
+            $cliente->correo = 'no tiene';
+        }else{
+            $cliente->correo = $request->correo;
+        }
+        // $cliente->direccion = $request->direccion;
+        $cliente->save();
+        return back()->with('mensaje', 'Cliente registrado con exito!!');
+        // return view('registro');
     }
 }
