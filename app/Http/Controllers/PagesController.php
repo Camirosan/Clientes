@@ -24,16 +24,23 @@ class PagesController extends Controller
 
     public function consulta(Request $request){
         // return $request->all();
-        $cliente = new Cliente;
-        $cliente->nombre = $request->nombre;
-        echo($cliente);
+        // $cliente = new Cliente;
+        $request->validate([
+            'nombre'=>'required'
+        ]);
+        $cliente = Cliente::where('nombre', $request->nombre)->get();
+        $cliente = $cliente[0];
+        // $cliente->nombre = $request->nombre;
+        // echo($cliente);
         // $nombre
         // $correo
         // $telefono
         // $celular
         // $whatsapp
         // $direccion
-        return back();
+        // return $cliente;
+        return view('clientes', compact('cliente'));
+        // return back();
     }
 
     public function registro(){
