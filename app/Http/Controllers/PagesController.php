@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cliente;
+use App\Models\Direccion;
 
 class PagesController extends Controller
 {
@@ -30,8 +31,10 @@ class PagesController extends Controller
         ]);
         $cliente = Cliente::where('nombre', $request->nombre)->get();
         $cliente = $cliente[0];
+        $direccion = Direccion::where('cliente_id', $cliente->id_cliente)->get();
+        $direccion = $direccion[0];
         // $cliente->nombre = $request->nombre;
-        // echo($cliente);
+        // echo($cliente->direccions);
         // $nombre
         // $correo
         // $telefono
@@ -39,7 +42,7 @@ class PagesController extends Controller
         // $whatsapp
         // $direccion
         // return $cliente;
-        return view('clientes', compact('cliente'));
+        return view('clientes', compact('cliente', 'direccion'));
         // return back();
     }
 
@@ -54,6 +57,7 @@ class PagesController extends Controller
             'celular'=>'required',
         ]);
         $cliente = new Cliente;
+        $direccion = new Direccion;
         $cliente->nombre = $request->nombre;
         if($request->telefono == ""){
             $cliente->telefono = 'no tiene';
@@ -71,8 +75,11 @@ class PagesController extends Controller
         }else{
             $cliente->correo = $request->correo;
         }
+        $direccion->direccion = $request->direccion;
         // $cliente->direccion = $request->direccion;
         $cliente->save();
+        $direccion->cliente_id = $cliente->id;
+        $direccion->save();
         return back()->with('mensaje', 'Cliente registrado con exito!!');
         // return view('registro');
     }

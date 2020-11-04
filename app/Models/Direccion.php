@@ -5,11 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Cliente extends Model
+class Direccion extends Model
 {
     use HasFactory;
-
-    public function direcciones(){
-        return $this->hasMany('App\Models\Direccion');
-    }
+        public function cliente(){
+            return $this->belongsTo(Cliente::class);
+        }
 }

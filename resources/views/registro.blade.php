@@ -1,14 +1,17 @@
 @extends('plantilla')
 
 @section('cuerpo')
-    <h1>Vista de registro</h1>
+    {{-- <h1>Vista de registro</h1> --}}
 
     @if('session'('mensaje'))
         <div class='alert alert-success'>
             {{ session('mensaje') }}
         </div>
     @endif
-
+    <div class="container mt-4 card card-header">
+        <h2>Ingresa los datos del cliente nuevo</h2>
+    </div>
+    <div class="container card card-body">
     <form action="{{ route('clietnes.crear') }}" method="post">
         @csrf
         @error('nombre')
@@ -80,4 +83,5 @@
         <button class="btn btn-primary btn-block mt-3 " type="submit">Registrar</button>
 
     </form>
+    </div>
 @endsection

@@ -13,6 +13,9 @@ class CreateClientesTable extends Migration
      */
     public function up()
     {
+
+        
+
         Schema::create('clientes', function (Blueprint $table) {
             $table->id('id_cliente');
             $table->string('nombre');
@@ -22,6 +25,15 @@ class CreateClientesTable extends Migration
             $table->boolean('whatsapp');
             $table->timestamps();
         });
+
+        Schema::create('direccions', function (Blueprint $table) {
+            $table->id('id');
+            $table->text('direccion');
+            $table->unsignedBigInteger('cliente_id');
+            $table->foreign('cliente_id')->references('id_cliente')->on('clientes');
+            $table->timestamps();
+        });
+
     }
 
     /**
@@ -32,5 +44,6 @@ class CreateClientesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('clientes');
+        Schema::dropIfExists('direccions');
     }
 }
